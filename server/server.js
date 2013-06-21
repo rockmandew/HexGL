@@ -103,7 +103,6 @@ io.sockets.on('connection', function(socket)
    {
       if(socket.gameCode && socket.gameCode in socketCodes)
       {
-         console.log(data.g);
          socketCodes[socket.gameCode].emit("turn", data.turn);
       }
    });

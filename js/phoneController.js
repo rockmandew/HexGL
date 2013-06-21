@@ -1,4 +1,4 @@
-var server = 'http://yourserver.com:3250';
+var server = 'http://vigrond.com:3250';
 
 var initPhoneController = function()
 {
@@ -93,7 +93,7 @@ var initPhoneController = function()
    // If client is browser game
    else
    {
-      var socket = io.connect('http://vigrond.com:3250');
+      var socket = io.connect(server);
       
       // When initial welcome message, reply with 'game' device type
       socket.on('welcome', function(data)
