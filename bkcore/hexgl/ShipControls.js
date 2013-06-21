@@ -153,9 +153,8 @@ bkcore.hexgl.ShipControls = function(domElement)
 			case 69: /*E*/self.key.rtrigger = false; break;
 		}
 	};
-
-	domElement.addEventListener('keydown', onKeyDown, false);
-	domElement.addEventListener('keyup', onKeyUp, false);
+	$(domElement).on('keydown', onKeyDown);
+	$(domElement).on('keyup', onKeyUp);
 };
 
 bkcore.hexgl.ShipControls.prototype.control = function(threeMesh)

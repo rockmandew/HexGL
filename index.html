@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="stylesheet" href="css/fonts.css" type="text/css" charset="utf-8">
 		<style>
-			body {
+         
+			body,html {
 				background:#ccc;
 				padding:0;
 				margin:0;
@@ -14,6 +15,8 @@
 				font-family:georgia;
 				text-align:center;
 				color: #666;
+            width:100%;
+            height:100%;
 			}
 			h1 {color: #666	; }
 			a { color:skyblue }
@@ -25,12 +28,118 @@
 				left: 0;
 				width: 100%;
 			}
+         
+         #controller{
+            width:100%;
+            height:100%;
+            background: url('/textures/controller/bg.png') repeat-x;
+            background-size:contain;
+         }
+         #wheel{
+            position:relative;
+            width:100%;
+            height:100%;
+         }
+         
+         #forward{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            background-image: url('/textures/controller/forward.png');
+            background-repeat:no-repeat;
+            background-position: center center;
+            background-size:auto 75%;
+         }
+         
+         #forward.active{
+            background-image: url('/textures/controller/forwardon.png');
+         }
+         
+         #stopRight{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            background-image: url('/textures/controller/stop.png');
+            background-repeat:no-repeat;
+            background-position: 98% center;
+            background-size:auto 40%;
+         }
+         #stopLeft{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            background-image: url('/textures/controller/stop.png');
+            background-repeat:no-repeat;
+            background-position: 2% center;
+            background-size:auto 40%;
+         }
+         
+         #stopRight.active, #stopLeft.active{
+            background-image: url('/textures/controller/stopon.png');
+         }
+         
+         #turnLeft{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            background-image: url('/textures/controller/turn.png');
+            background-repeat:no-repeat;
+            background-position: 98% 95%;
+            background-size:auto 20%;
+            -webkit-transform:scaleX(-1);
+         }
+         #turnLeft.active, #turnRight.active{
+            background-image: url('/textures/controller/turnon.png');
+         }
+         
+         #turnRight{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            background-image: url('/textures/controller/turn.png');
+            background-repeat:no-repeat;
+            background-position: 98% 95%;
+            background-size:auto 20%;
+         }
+
+        
 		</style>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+      
 	</head>
 
 	<body>
 		<div id="overlay"></div>
 		<div id="main"></div>
+      <div id="gameConnect" style="display:none">
+         Please open up this page with your phone and enter code <span style="font-weight:bold" id="socketId"></span>
+      </div>
+      <div id="controller" style="display:none">
+         <div id="socket">
+            <input type="text" name="socketId"/>
+            <input type="button" id="connect" value="Connect"/>
+
+         </div>
+         <div id="wheel" style="display:none">
+            <div id="forward"></div>
+            <div id="stopRight"></div>
+            <div id="stopLeft"></div>
+            <div id="turnRight"></div>
+            <div id="turnLeft"></div>
+         </div>
+         <div id="status"></div>
+      </div>
+
 
 		<script src="js/Three.dev.js"></script>
 		<script src="js/ShaderExtras.js"></script>
@@ -42,6 +151,8 @@
 		<script src="js/Detector.js"></script>
 		<script src="js/Stats.js"></script>
 		<script src="js/DAT.GUI.min.js"></script>
+      <script src="js/emulatedControls.js"></script>
+      <script src="js/phoneController.js"></script>
 
 		<script src="bkcore/Timer.js"></script>
 		<script src="bkcore/ImageData.js"></script>
@@ -61,7 +172,9 @@
 		<script src="bkcore/hexgl/tracks/Cityscape.js"></script>
 
 		<script src="bkcore/hexgl/HexGL.js"></script>
-
+      
+      <script src="/socket.io/socket.io.js"></script>
+      
 		<script>
 
 			var SCREEN_WIDTH = window.innerWidth;
@@ -102,8 +215,9 @@
 					}
 				});
 			}
-			
-			init();
+         
+                           
+         initPhoneController();
 
 		</script>
 
