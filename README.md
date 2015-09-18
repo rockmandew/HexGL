@@ -25,3 +25,5 @@ There will also be some refactoring, when I get some time :P
 After much thinking, I've decided to release HexGL's source code under CC 3.0 BY-NC until further notice. This is not a definite choice, and the game may end up under the MIT license someday.
 
 Feel free to post issues, patch or anything to make the game better.
+
+http://artandlogic.com/2013/06/phone-to-browser-html5-gaming-using-node-js-and-socket-io/
